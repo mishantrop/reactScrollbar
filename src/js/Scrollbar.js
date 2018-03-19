@@ -121,12 +121,9 @@ class ScrollBar extends React.Component {
       isDragging: true,
       lastClientPosition,
     });
-
-    this.props.onFocus();
   }
 
   handleMouseUp(e) {
-    e.preventDefault();
     this.setState({
       isDragging: false,
     });
@@ -179,35 +176,39 @@ class ScrollBar extends React.Component {
     let containerClassNameOrientation = isHorizontal ? containerClassNameHorizontal : containerClassNameVertical;
     let scrollbarContainerClasses = [containerClassName, containerClassNameActive, containerClassNameOrientation].join(' ');
 
-    return (
-      <Motion style = {springifiedScrollStyles}>
-        {
-          style =>
-          <div
-            className={
-              scrollbarContainerClasses
-            }
-            style={
-              containerStyle
-            }
-            onMouseDown={
-              this.handleScrollBarContainerClick.bind(this)
-            }
-            ref={
-              x => this.scrollbarContainer = x
-            }
-          >
-          <div
-            className={scrollbarClassName}
-            style={
-              { ...scrollbarStyle,
-                ...style
-              }
-            }
-            onMouseDown={this.handleMouseDown.bind(this)}
-          />
-          </div>
+    return ( 
+      <Motion style = {
+        springifiedScrollStyles
+      } > {
+        style =>
+        <div
+        className = {
+          scrollbarContainerClasses
         }
+        style = {
+          containerStyle
+        }
+        onMouseDown = {
+          this.handleScrollBarContainerClick.bind(this)
+        }
+        ref = {
+          x => this.scrollbarContainer = x
+        } >
+        <div
+        className = {
+          scrollbarClassName
+        }
+        style = {
+          { ...scrollbarStyle,
+            ...style
+          }
+        }
+        onMouseDown = {
+          this.handleMouseDown.bind(this)
+        }
+        />
+        </div>
+      }
       </Motion>
     );
   }
